@@ -121,6 +121,7 @@ bindkey '^R' history-incremental-pattern-search-backward
 
 ########################################
 # エイリアス
+alias vi='/usr/bin/vim'
 
 alias mkdir='mkdir -p'
 
