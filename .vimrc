@@ -1,6 +1,9 @@
 " support multi byte strings
 scriptencoding utf-8
 
+" vi互換無効
+set nocompatible
+
 augroup vimrc
   autocmd!
 augroup END
@@ -16,8 +19,15 @@ set softtabstop=0
 set number
 set nowrap
 set nobackup
+set ruler
 
 set title
+
+" status line
+set laststatus=2
+set statusline=%<%f\ %m%r%h%w
+set statusline+=%{'['.(&fenc!=''?&fenc:&enc).']['.&fileformat.']'}
+set statusline+=%=%l/%L,%c%V%8P
 
 " カーソル行をハイライト
 set cursorline
@@ -38,6 +48,9 @@ set smartcase
 set nowrapscan
 set hlsearch
 
+" dont create sqap file
+set noswapfile
+
 " calor schema
 set t_Co=256
 colorscheme molokai
@@ -48,8 +61,14 @@ if has('persistent_undo')
   set undofile
 endif
 
-"
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
+" hight light trailing space
+augroup HighlightTrailingSpaces
+  autocmd!
+  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
+  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
+augroup END
+
+
 
 " vundle
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -79,17 +98,13 @@ nmap k <Plug>(accelerated_jk_gk)
 syntax on
 filetype plugin indent on
 
-autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} set filetype=markdown
-autocmd BufNewFile,BufRead *.rb set filetype=ruby
-autocmd BufNewFile,BufRead *.slim set filetype=slim
-autocmd BufNewFile,BufRead *.{yml,yaml} set filetype=yaml
+autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setf markdown
+autocmd BufNewFile,BufRead *.rb setf ruby
+autocmd BufNewFile,BufRead Gemfile setf ruby
+autocmd BufNewFile,BufRead *.slim setf slim
+autocmd BufNewFile,BufRead *.{yml,yaml} setf yaml
 
-" hight light trailing space
-augroup HighlightTrailingSpaces
-  autocmd!
-  autocmd VimEnter,WinEnter,ColorScheme * highlight TrailingSpaces term=underline guibg=Red ctermbg=Red
-  autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
-augroup END
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
 
 " disable folding
 set nofoldenable
