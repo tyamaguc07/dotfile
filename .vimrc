@@ -69,6 +69,7 @@ augroup HighlightTrailingSpaces
 augroup END
 
 
+runtime macros/matchit.vim
 
 " vundle
 set rtp+=~/.vim/bundle/Vundle.vim
