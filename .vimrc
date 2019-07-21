@@ -68,44 +68,9 @@ augroup HighlightTrailingSpaces
   autocmd VimEnter,WinEnter * match TrailingSpaces /\s\+$/
 augroup END
 
-
-runtime macros/matchit.vim
-
-" vundle
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#rc()
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-Plugin 'slim-template/vim-slim.git'
-" Plugin 'vim-ruby/vim-ruby.git'
-Plugin 'kana/vim-arpeggio.git'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mrk21/yaml-vim'
-
-Plugin 'kannokanno/previm'
-Plugin 'tyru/open-browser.vim'
-
-Plugin 'rhysd/accelerated-jk'
-
-call arpeggio#load() "arpeggioをこのvimrc内で有効にする
-Arpeggio inoremap jk  <Esc>
-
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
-
 " syntax
 syntax on
 filetype plugin indent on
 
-autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,mark*} setf markdown
-autocmd BufNewFile,BufRead *.rb setf ruby
-autocmd BufNewFile,BufRead Gemfile setf ruby
-autocmd BufNewFile,BufRead *.slim setf slim
-autocmd BufNewFile,BufRead *.{yml,yaml} setf yaml
-
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\""
-
-" disable folding
+" 折りたたみオフ
 set nofoldenable
